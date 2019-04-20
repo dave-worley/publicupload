@@ -7,7 +7,9 @@ const helpers = require('./helpers.js');
 
 const app = express();
 const router = express.Router();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 app.use(express.json());
 
 /*

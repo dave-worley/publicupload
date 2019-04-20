@@ -8,11 +8,14 @@ export default () => {
   return (
     <div className="listUploads">
       {
-        state.uploads.map((upload) => {
+        state.uploads.length > 0 && state.uploads.map((upload) => {
           return (
             <FileDisplay key={ upload.id } file={ upload }/>
           );
         })
+      }
+      {
+        state.uploads.length === 0 && (<p>No files found.</p>)
       }
     </div>
   );

@@ -3,13 +3,17 @@ import React from 'react';
 export const Store = React.createContext();
 
 const initialState = {
-  uploads: []
+  uploads: [],
+  searchTerm: ''
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_UPLOADS':
       return { ...state, uploads: action.payload };
+    case 'SEARCH_UPLOADS':
+      const { uploads, searchTerm } = action.payload;
+      return { ...state, uploads, searchTerm};
     case 'REMOVE_UPLOAD':
       return {
         ...state,

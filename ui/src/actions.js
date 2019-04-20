@@ -19,3 +19,15 @@ export const deleteUploadAction = async (dispatch, id) => {
     payload: dataJSON
   });
 };
+
+export const searchUploadsAction = async (dispatch, search) => {
+  const data = await fetch(`${BASEURL}listuploads/${search}`);
+  const dataJSON = await data.json();
+  return dispatch({
+    type: 'SEARCH_UPLOADS',
+    payload: {
+      uploads: dataJSON,
+      searchTerm: search
+    }
+  });
+};
