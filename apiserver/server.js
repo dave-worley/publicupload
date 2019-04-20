@@ -43,7 +43,9 @@ router.get('/static/:fileId', (req, res) => {
   }
 });
 
-
+/*
+  TODO: refactor with sqlite or mongo and just add that requirement to the documentation
+*/
 router.delete('/removeupload/:fileId', (req, res) => {
   const normalPath = path.normalize(req.params.fileId).replace(/^(\.\.(\/|\\|$))+/, '');
   let didSomething = false;
