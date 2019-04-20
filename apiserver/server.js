@@ -48,7 +48,7 @@ router.get('/static/:fileId', (req, res) => {
 */
 router.delete('/removeupload/:fileId', (req, res) => {
   const normalPath = path.normalize(req.params.fileId).replace(/^(\.\.(\/|\\|$))+/, '');
-  let didSomething = false;
+  let removed = undefined;
   fs.readdirSync('public').filter((file) => {
     if (path.extname(file) === '.json') {
       return true;
@@ -64,13 +64,15 @@ router.delete('/removeupload/:fileId', (req, res) => {
     fs.writeFileSync(`public/${ file.name }.json`, JSON.stringify(file), 'utf8');
     fs.renameSync(file.path, file.path + '.deleted');
     helpers.pprint(`Marked a file as deleted: ${ file.path }`, 'red');
-    didSomething = true;
+    removed = file.id;
   });
 
   // just return the status here
   // the user doesn't need to know anything else
-  if (didSomething) {
-    return res.status(202).end();
+  if (removed) {
+    return res.status(202).json({
+      id: removed
+    });
   }
   return res.status(500).end();
 });

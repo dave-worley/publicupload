@@ -10,6 +10,13 @@ function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_UPLOADS':
       return { ...state, uploads: action.payload };
+    case 'REMOVE_UPLOAD':
+      return {
+        ...state,
+        uploads: state.uploads.filter((u) => {
+          return u.id !== action.payload.id;
+        })
+      };
     default:
       return state;
   }

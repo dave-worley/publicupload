@@ -10,7 +10,7 @@ export default () => {
       {
         state.uploads.map((upload) => {
           return (
-            <FileDisplay file={upload}/>
+            <FileDisplay key={ upload.id } file={ upload }/>
           );
         })
       }
