@@ -1,0 +1,24 @@
+.document {
+    border: 1px solid #6f7c8f;
+    padding: 1rem 2rem;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 1rem;
+    max-width: 33%;
+}
+.documentName {
+    font-size: 200%;
+    width: 100%;
+}
+.documentSize {
+    font-size: 80%;
+    width: 50%;
+}
+.deleteContainer {
+    width: 50%;
+    text-align: right;
+    align-self: flex-end;
+}

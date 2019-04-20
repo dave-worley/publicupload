@@ -23,12 +23,12 @@ router.get('/static/:fileId', (req, res) => {
     return path.extname(file) === '.json';
   })
   // return the parsed metadata files as the response
-  .map((file) => {
-    return JSON.parse(fs.readFileSync('public/' + file));
-  })
-  .filter((metadata) => {
-    return metadata.id === req.params.fileId;
-  })[0];
+    .map((file) => {
+      return JSON.parse(fs.readFileSync('public/' + file));
+    })
+    .filter((metadata) => {
+      return metadata.id === req.params.fileId;
+    })[0];
   if (file && fs.existsSync(file.path)) {
     return res.sendFile(file.path, {
       root: __dirname,
@@ -61,9 +61,9 @@ router.delete('/removeupload/:fileId', (req, res) => {
     }
   }).forEach((file) => {
     file.deleted = true;
-    fs.writeFileSync(`public/${file.name}.json`, JSON.stringify(file), 'utf8');
+    fs.writeFileSync(`public/${ file.name }.json`, JSON.stringify(file), 'utf8');
     fs.renameSync(file.path, file.path + '.deleted');
-    helpers.pprint(`Marked a file as deleted: ${file.path}`, 'red');
+    helpers.pprint(`Marked a file as deleted: ${ file.path }`, 'red');
     didSomething = true;
   });
 
@@ -116,7 +116,7 @@ app.post('/upload', (req, res) => {
     We let JSON.stringify do the work of sanitizing user input.
      */
     const fileName = path.basename(req.file.filename, path.extname(req.file.filename));
-    helpers.pprint(`File is being stored: ${fileName}.json`, 'green');
+    helpers.pprint(`File is being stored: ${ fileName }.json`, 'green');
     const meta = {
       // the id is so that we don't expose the disk filename to the response sent to the user
       id: helpers.uniqid(),
@@ -126,7 +126,8 @@ app.post('/upload', (req, res) => {
       originalname: req.file.originalname,
       deleted: false
     };
-    fs.writeFile(`public/${fileName}.json`, JSON.stringify(meta), 'utf8', () => {});
+    fs.writeFile(`public/${ fileName }.json`, JSON.stringify(meta), 'utf8', () => {
+    });
     return res.status(200).json(JSON.stringify({
       id: meta.id,
       size: meta.size,
@@ -136,8 +137,10 @@ app.post('/upload', (req, res) => {
 });
 
 app.get(['/listuploads', '/listuploads/:name'], (req, res) => {
-  return res.status(200).json(
-    JSON.stringify(
+  res.setHeader('Content-Type', 'application/json');
+  return res
+    .status(200)
+    .json(
       // read the directory synchronously for metadata files
       fs.readdirSync('public').filter((file) => {
         return path.extname(file) === '.json';
@@ -158,7 +161,7 @@ app.get(['/listuploads', '/listuploads/:name'], (req, res) => {
         // if there is no "name" property in the body return everything
         if (!req.params.name) {
           return true;
-        // if there is a "name" in the body return only what contains "name"
+          // if there is a "name" in the body return only what contains "name"
         } else {
           return metadata.originalname.includes(req.params.name);
         }
@@ -171,8 +174,7 @@ app.get(['/listuploads', '/listuploads/:name'], (req, res) => {
           name: metadata.originalname
         };
       })
-    )
-  );
+    );
 });
 
 app.listen(8000, () => {

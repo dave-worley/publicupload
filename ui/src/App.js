@@ -1,44 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import Button from './components/button';
+import { Store } from './Store';
+import ListUploads from "./components/listUploads";
 
-const AppContext = React.createContext();
 
-class AppProvider extends Component {
-  state = {
-    uploads: []
+export default () => {
+  const { state, dispatch } = React.useContext(Store);
+  const fetchUploadsAction = async () => {
+    const data = await fetch('http://localhost:8000/listuploads');
+    const dataJSON = await data.json();
+    return dispatch({
+      type: 'FETCH_UPLOADS',
+      payload: dataJSON
+    });
   };
-
-  render() {
-    return (<AppContext.Provider value={ {
-      state: this.state,
-      getUploads: () => {
-        fetch('http://localhost:8000/listuploads')
-          .then(res => res.json())
-          .then((result) => {
-            this.setState({
-              uploads: result
-            })
-          }, (error) => {
-            console.error('Unable to fetch uploads.');
-          })
-      }
-    } }>
-      { this.props.children }
-    </AppContext.Provider>);
-  }
+  React.useEffect(() => {
+    state.uploads.length === 0 && fetchUploadsAction();
+  });
+  return (
+    <div className="App">
+      <ListUploads />
+    </div>
+  );
 }
-
-class App extends Component {
-  render() {
-    return (
-      <AppProvider>
-        <div className="App">
-          <Button>Hello!</Button>
-        </div>
-      </AppProvider>
-    );
-  }
-}
-
-export default App;
