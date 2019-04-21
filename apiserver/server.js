@@ -132,11 +132,11 @@ app.post('/upload', (req, res) => {
     };
     fs.writeFile(`public/${ fileName }.json`, JSON.stringify(meta), 'utf8', () => {
     });
-    return res.status(200).json(JSON.stringify({
+    return res.status(200).json({
       id: meta.id,
       size: meta.size,
       name: meta.originalname
-    }));
+    });
   });
 });
 

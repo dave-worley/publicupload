@@ -4,7 +4,8 @@ export const Store = React.createContext();
 
 const initialState = {
   uploads: [],
-  searchTerm: ''
+  searchTerm: '',
+  uploadFile: null
 };
 
 function reducer(state, action) {
@@ -20,6 +21,19 @@ function reducer(state, action) {
         uploads: state.uploads.filter((u) => {
           return u.id !== action.payload.id;
         })
+      };
+    case 'UPLOAD_FILE':
+      const newUploads = state.uploads.slice(0);
+      newUploads.push(action.payload);
+      return {
+        ...state,
+        uploads: newUploads,
+        uploadFile: null
+      };
+    case 'SET_UPLOAD_FILE':
+      return {
+        ...state,
+        uploadFile: action.payload
       };
     default:
       return state;

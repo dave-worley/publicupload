@@ -31,3 +31,24 @@ export const searchUploadsAction = async (dispatch, search) => {
     }
   });
 };
+
+export const setUploadFile = async (dispatch, file) => {
+  return dispatch({
+    type: 'SET_UPLOAD_FILE',
+    payload: file
+  });
+};
+
+export const uploadFile = async (dispatch, file) => {
+  const formData = new FormData();
+  formData.append('data', file);
+  const data = await fetch(`${BASEURL}upload`, {
+    method: 'POST',
+    body: formData
+  });
+  const dataJSON = await data.json();
+  return dispatch({
+    type: 'UPLOAD_FILE',
+    payload: dataJSON
+  });
+};

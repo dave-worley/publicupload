@@ -4,6 +4,7 @@ import { Store } from './Store';
 import { fetchUploadsAction } from './actions';
 import ListUploads from './components/listUploads';
 import SearchBar from './components/searchBar';
+import UploadFile from './components/uploadFile';
 
 
 export default () => {
@@ -14,6 +15,7 @@ export default () => {
   return (
     <div className='App'>
       <SearchBar/>
+      <UploadFile/>
       <ListUploads />
     </div>
   );
