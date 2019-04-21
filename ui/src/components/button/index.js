@@ -2,10 +2,11 @@ import React from 'react';
 import './style.css';
 export default ({
   children,
-  action
+  action,
+  className
 }) => {
   return (
-    <button className='button' onClick={ action }>
+    <button className={ `button ${className}` } onClick={ action }>
       { children }
     </button>
   );

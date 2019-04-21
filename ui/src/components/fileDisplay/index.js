@@ -14,7 +14,10 @@ export default ({
       <p className='documentSize'>{Math.round(file.size / 1000)}KB</p>
       <div className="deleteContainer">
         <Button action={() => {
-          deleteUploadAction(dispatch, file.id);
+          const confirm = confirm(`Please click OK to delete ${file.name}. This action is permanent.`);
+          if (confirm) {
+            deleteUploadAction(dispatch, file.id);
+          }
         }}>delete</Button>
       </div>
     </div>

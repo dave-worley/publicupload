@@ -14,8 +14,8 @@ export default () => {
   });
   return (
     <div className='App'>
-      <SearchBar/>
       <UploadFile/>
+      <SearchBar/>
       <ListUploads />
     </div>
   );

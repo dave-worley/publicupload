@@ -1,11 +1,12 @@
 import React from 'react';
 
-export const Store = React.createContext();
+export const Store = React.createContext({});
 
 const initialState = {
   uploads: [],
   searchTerm: '',
-  uploadFile: null
+  uploadFile: null,
+  uploadFormVisible: false
 };
 
 function reducer(state, action) {
@@ -34,6 +35,11 @@ function reducer(state, action) {
       return {
         ...state,
         uploadFile: action.payload
+      };
+    case 'TOGGLE_UPLOAD_FORM':
+      return {
+        ...state,
+        uploadFormVisible: action.payload
       };
     default:
       return state;

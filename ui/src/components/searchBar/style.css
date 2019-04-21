@@ -1,0 +1,13 @@
+.searchBar {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+.searchInput {
+    width: 75%;
+    font-size: 125%;
+}
+.btn {
+    float: right;
+    margin: 0 1rem 0 0;
+}

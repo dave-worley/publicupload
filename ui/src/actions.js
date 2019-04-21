@@ -52,3 +52,10 @@ export const uploadFile = async (dispatch, file) => {
     payload: dataJSON
   });
 };
+
+export const toggleUploadForm = (dispatch, currentState) => {
+  return dispatch({
+    type: 'TOGGLE_UPLOAD_FORM',
+    payload: !currentState
+  });
+};
