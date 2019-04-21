@@ -15,6 +15,11 @@
     font-size: 80%;
     color: #888;
 }
+.noFiles {
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}
 @media (max-width: 812px)  {
     .listUploads {
         justify-content: space-evenly;

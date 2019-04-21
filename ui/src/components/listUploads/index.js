@@ -22,7 +22,7 @@ export default () => {
         })
       }
       {
-        state && state.uploads.length === 0 && (<p>No files found.</p>)
+        state && state.uploads.length === 0 && (<p className='noFiles'>No files found.</p>)
       }
     </div>
   );

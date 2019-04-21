@@ -1,7 +1,7 @@
 const BASEURL = 'http://localhost:8000/';
 
 export const fetchUploadsAction = async (dispatch) => {
-  const data = await fetch(BASEURL + 'listuploads');
+  const data = await fetch(`${BASEURL}listuploads`);
   const dataJSON = await data.json();
   return dispatch({
     type: 'FETCH_UPLOADS',
@@ -32,7 +32,7 @@ export const searchUploadsAction = async (dispatch, search) => {
   });
 };
 
-export const setUploadFile = async (dispatch, file) => {
+export const setUploadFile = (dispatch, file) => {
   return dispatch({
     type: 'SET_UPLOAD_FILE',
     payload: file
