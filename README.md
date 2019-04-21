@@ -14,6 +14,7 @@
 - I've installed a middleware package called Helmet that sets several security headers. It can also handle CSP rules.
 - CORS headers set to only accept requests from http://localhost:3000
 - No cookies are used.
+- Files are not deleted. They are in stead marked for deletion and hidden from API responses.
 
 *Concerns that need to be addressed:*
 - The API currently doesn't verify that a file is actually a PNG or JPG. You could upload an executable file.
