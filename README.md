@@ -1,8 +1,8 @@
 # David - April 21, 2019
 ## Installation
 1. Clone the repository. The one repository contains both the API server and the UI code.
-2. Start the API server. From the repository root: `cd apiserver && npm start`. This will start nodemon and serve the basic API from port 8000.
-3. Start the UI development server. From the repository root: `cd ui && yarn start`. This will start the UI server on port 3000. Note that the ports are currently hard coded.
+2. Start the API server. From the repository root: `cd apiserver && npm i && npm start`. This will start nodemon and serve the basic API from port 8000.
+3. Start the UI development server. From the repository root: `cd ui && yarn && yarn start`. This will start the UI server on port 3000. Note that the ports are currently hard coded.
 
 ## Security
 *Concerns I've addressed:*
