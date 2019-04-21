@@ -106,7 +106,9 @@ app.post('/upload', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
       helpers.pprint(err, 'red');
-      return res.status(500).json(err);
+      return res.status(500).json({
+        error: err.message
+      });
     }
 
     /*
@@ -129,8 +131,7 @@ app.post('/upload', (req, res) => {
       originalname: req.file.originalname,
       deleted: false
     };
-    fs.writeFile(`public/${ fileName }.json`, JSON.stringify(meta), 'utf8', () => {
-    });
+    fs.writeFile(`public/${ fileName }.json`, JSON.stringify(meta), 'utf8', () => {});
     return res.status(200).json({
       id: meta.id,
       size: meta.size,

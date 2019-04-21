@@ -39,6 +39,7 @@
 - An admin facility for working with uploads.
 - The repository for both projects should be separated into two repositories.
 - Both apps should use centralized logging. SSH in to a running server to check logs is a security risk. 
+- Use Sass or PostCSS
 
 ## Libraries
 **API project dependencies:**

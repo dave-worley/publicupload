@@ -6,7 +6,8 @@ const initialState = {
   uploads: [],
   searchTerm: '',
   uploadFile: null,
-  uploadFormVisible: false
+  uploadFormVisible: false,
+  error: null
 };
 
 function reducer(state, action) {
@@ -40,6 +41,11 @@ function reducer(state, action) {
       return {
         ...state,
         uploadFormVisible: action.payload
+      };
+    case 'ERROR':
+      return {
+        ...state,
+        error: action.payload
       };
     default:
       return state;

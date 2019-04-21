@@ -47,6 +47,19 @@ export const uploadFile = async (dispatch, file) => {
     body: formData
   });
   const dataJSON = await data.json();
+  if (Object.keys(dataJSON).includes('error')) {
+    // only display the error for a few seconds
+    setTimeout(() => {
+      dispatch({
+        type: 'ERROR',
+        payload: null
+      });
+    }, 5 * 1000);
+    return dispatch({
+      type: 'ERROR',
+      payload: dataJSON.error
+    });
+  }
   return dispatch({
     type: 'UPLOAD_FILE',
     payload: dataJSON

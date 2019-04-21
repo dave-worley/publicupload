@@ -1,0 +1,8 @@
+.error {
+    border: 3px solid red;
+    color: red;
+    background-color: white;
+}
+.error .content {
+    padding: 1rem;
+}

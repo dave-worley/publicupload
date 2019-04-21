@@ -5,6 +5,7 @@ import { fetchUploadsAction } from './actions';
 import ListUploads from './components/listUploads';
 import SearchBar from './components/searchBar';
 import UploadFile from './components/uploadFile';
+import ErrorDisplay from './components/errorDisplay';
 
 
 export default () => {
@@ -13,8 +14,9 @@ export default () => {
     state && state.uploads.length === 0 && state.searchTerm === '' && fetchUploadsAction(dispatch);
   });
   return (<div className='App'>
-      <UploadFile/>
-      <SearchBar/>
-      <ListUploads />
-    </div>);
+    { state.error && <ErrorDisplay>{ state.error }</ErrorDisplay> }
+    <UploadFile/>
+    <SearchBar/>
+    <ListUploads/>
+  </div>);
 }
