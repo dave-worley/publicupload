@@ -15,3 +15,8 @@
     font-size: 80%;
     color: #888;
 }
+@media (max-width: 812px)  {
+    .listUploads {
+        justify-content: space-evenly;
+    }
+}
