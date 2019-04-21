@@ -4,8 +4,10 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const helpers = require('./helpers.js');
+const helmet = require('helmet');
 
 const app = express();
+app.use(helmet());
 const router = express.Router();
 app.use(cors({
   origin: 'http://localhost:3000'
