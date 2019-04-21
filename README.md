@@ -19,8 +19,8 @@
 ## API
 // Any general observation about the API?
 // document each endpoint using the following template:
-```
 ### GET /listuploads
+```
 List all uploads.
 returns: an array of objects matching the shape:
 {
@@ -29,8 +29,8 @@ returns: an array of objects matching the shape:
   name: String
 }
 ```
-```
 ### GET /listuploads/:name
+```
 List all uploads filtered by the original filename.
 params:
 - name: A string value to search original filenames with. Case sensitive.
@@ -42,8 +42,8 @@ returns:
   name: String
 }
 ```
-```
 ### POST /upload
+```
 Upload a file of type png or jpg.
 params: data
 returns: an array of objects matching the shape:
@@ -53,8 +53,8 @@ returns: an array of objects matching the shape:
   name: String
 }
 ```
-```
 ### DELETE /removeupload/:fileId
+```
 Remove an uploaded file.
 params:
 - fileId: an exact file ID 
