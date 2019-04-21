@@ -6,8 +6,13 @@
 
 ## Security
 *Concerns I've addressed:*
+- Uploaded files are automatically renamed. The original file name is stored in metadata.
+- The path a file is stored on disk is never exposed to the end user.
+- User input is sanitized. File names, search parameters, etc. are treated as untrusted.
 *Concerns that need to be addressed:*
 - The API currently doesn't verify that a file is actually a PNG or JPG.
+- The API doesn't remove exif data from JPG images.
+- Files uploaded via the API are stored directly on disk.
 
 ## Improvements
 - A real database. To save time I used the filesystem to store metadata about images. This should have been stored in a relational database or a document store. This is my first Express based app and I didn't want to incur the overhead of adding Mongo, sqlite, or MySQL. In retrospect it would have been basically the same level of effort.
