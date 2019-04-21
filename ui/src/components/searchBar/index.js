@@ -1,6 +1,6 @@
 import React from 'react';
-import { Store } from "../../Store";
-import { searchUploadsAction, toggleUploadForm } from "../../actions";
+import { Store } from '../../Store';
+import { searchUploadsAction, toggleUploadForm } from '../../actions';
 import Button from '../button';
 import './style.css';
 

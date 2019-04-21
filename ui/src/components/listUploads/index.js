@@ -1,6 +1,6 @@
 import React from 'react';
 import FileDisplay from '../fileDisplay';
-import { Store } from "../../Store";
+import { Store } from '../../Store';
 import './style.css';
 
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
     }, 0) / 1000);
   }
   return (
-    <div className="listUploads">
+    <div className='listUploads'>
       <h2>{ state.uploads.length } Documents <span>{ totalKB }KB</span></h2>
       <br/>
       {
