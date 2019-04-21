@@ -9,6 +9,7 @@
 - Uploaded files are automatically renamed. The original file name is stored in metadata.
 - The path a file is stored on disk is never exposed to the end user.
 - User input is sanitized. File names, search parameters, etc. are treated as untrusted.
+- User input is never used for display purposes. Error messages and other feedback use standard messages.
 
 *Concerns that need to be addressed:*
 - The API currently doesn't verify that a file is actually a PNG or JPG.

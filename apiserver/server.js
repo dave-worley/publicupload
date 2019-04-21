@@ -12,6 +12,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
+const getAllMetadata = () => {
+  return fs.readdirSync('public').filter((file) => {
+    return path.extname(file) === '.json';
+  })
+    .map((file) => {
+      return JSON.parse(fs.readFileSync('public/' + file));
+    });
+};
+
 
 const storage = multer.diskStorage({
   destination: 'public',
@@ -45,16 +54,9 @@ const upload = multer({
   we'll see if there's time to refactor all of this
  */
 router.get('/static/:fileId', (req, res) => {
-  const file = fs.readdirSync('public').filter((file) => {
-    return path.extname(file) === '.json';
-  })
-  // return the parsed metadata files as the response
-    .map((file) => {
-      return JSON.parse(fs.readFileSync('public/' + file));
-    })
-    .filter((metadata) => {
-      return metadata.id === req.params.fileId;
-    })[0];
+  const file = getAllMetadata().filter((metadata) => {
+    return metadata.id === req.params.fileId;
+  })[0];
   if (file && fs.existsSync(file.path)) {
     return res.sendFile(file.path, {
       root: __dirname,
@@ -75,13 +77,7 @@ router.get('/static/:fileId', (req, res) => {
 router.delete('/removeupload/:fileId', (req, res) => {
   const normalPath = path.normalize(req.params.fileId).replace(/^(\.\.(\/|\\|$))+/, '');
   let removed = undefined;
-  fs.readdirSync('public').filter((file) => {
-    if (path.extname(file) === '.json') {
-      return true;
-    }
-  }).map((file) => {
-    return JSON.parse(fs.readFileSync('public/' + file));
-  }).filter((file) => {
+  getAllMetadata().filter((file) => {
     if (file.id === normalPath) {
       return true;
     }
@@ -147,38 +143,26 @@ app.get(['/listuploads', '/listuploads/:name'], (req, res) => {
     .status(200)
     .json(
       // read the directory synchronously for metadata files
-      fs.readdirSync('public').filter((file) => {
-        return path.extname(file) === '.json';
-      })
-      // return the parsed metadata files as the response
-      .map((file) => {
-        return JSON.parse(fs.readFileSync('public/' + file));
-      })
-      // we don't delete files from the server with an API call
-      // in stead we mark them deleted and don't return them here
-      .filter((metadata) => {
-        return !metadata.deleted;
-      })
-      // the requirements document explicitly states that filtering should happen via API
-      // here we look for the "name" property in the body. If it exists we filter files by
-      // their original name
-      .filter((metadata) => {
-        // if there is no "name" property in the body return everything
-        if (!req.params.name) {
-          return true;
-          // if there is a "name" in the body return only what contains "name"
-        } else {
-          return metadata.originalname.includes(req.params.name);
-        }
-      })
-      // sanitize what we return in the API response
-      .map((metadata) => {
-        return {
-          id: metadata.id,
-          size: metadata.size,
-          name: metadata.originalname
-        };
-      })
+      getAllMetadata()
+        .filter((metadata) => {
+          return !metadata.deleted;
+        })
+        .filter((metadata) => {
+          // if there is no "name" property in the body return everything
+          if (!req.params.name) {
+            return true;
+            // if there is a "name" in the body return only what contains "name"
+          } else {
+            return metadata.originalname.includes(req.params.name);
+          }
+        })
+        .map((metadata) => {
+          return {
+            id: metadata.id,
+            size: metadata.size,
+            name: metadata.originalname
+          };
+        })
     );
 });
 
