@@ -46,7 +46,7 @@ returns:
 ```
 Upload a file of type png or jpg.
 params: data
-returns: an array of objects matching the shape:
+returns: an object matching the shape:
 {
   id: String,
   size: Number,
