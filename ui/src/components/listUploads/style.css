@@ -1,7 +1,10 @@
 .listUploads {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
 }
 .listUploads h2 {
     width: 100%;

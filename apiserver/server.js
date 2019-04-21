@@ -12,6 +12,30 @@ app.use(cors({
 }));
 app.use(express.json());
 
+
+const storage = multer.diskStorage({
+  destination: 'public',
+  filename: (req, file, cb) => {
+    cb(null, helpers.uniqid() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: {
+    // limit the file size to 10MB
+    // unfortunately multer uses bytes...
+    fileSize: Math.pow(10, 7)
+  },
+  fileFilter: (req, file, cb) => {
+    const originalExtension = path.extname(file.originalname);
+    if (!['.png', '.jpg'].includes(originalExtension)) {
+      return cb(new Error('File is of the wrong type.'));
+    }
+    return cb(null, true);
+  }
+}).single('data');
+
 /*
   this enables us to view a file by the id rather than by the disk path
   and prevents the disk path from being exposed to the user
@@ -79,29 +103,6 @@ router.delete('/removeupload/:fileId', (req, res) => {
   return res.status(500).end();
 });
 app.use('/', router);
-
-const storage = multer.diskStorage({
-  destination: 'public',
-  filename: (req, file, cb) => {
-    cb(null, helpers.uniqid() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({
-  storage,
-  limits: {
-    // limit the file size to 10MB
-    // unfortunately multer uses bytes...
-    fileSize: Math.pow(10, 7)
-  },
-  fileFilter: (req, file, cb) => {
-    const originalExtension = path.extname(file.originalname);
-    if (!['.png', '.jpg'].includes(originalExtension)) {
-      return cb(new Error('File is of the wrong type.'));
-    }
-    return cb(null, true);
-  }
-}).single('data');
 
 app.post('/upload', (req, res) => {
   upload(req, res, (err) => {

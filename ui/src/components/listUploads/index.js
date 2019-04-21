@@ -14,7 +14,6 @@ export default () => {
   return (
     <div className='listUploads'>
       <h2>{ state.uploads.length } Documents <span>{ totalKB }KB</span></h2>
-      <br/>
       {
         state.uploads.length > 0 && state.uploads.map((upload) => {
           return (
