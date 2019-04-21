@@ -10,13 +10,11 @@ import UploadFile from './components/uploadFile';
 export default () => {
   const { state, dispatch } = React.useContext(Store);
   React.useEffect(() => {
-    state.uploads.length === 0 && state.searchTerm === '' && fetchUploadsAction(dispatch);
+    state && state.uploads.length === 0 && state.searchTerm === '' && fetchUploadsAction(dispatch);
   });
-  return (
-    <div className='App'>
+  return (<div className='App'>
       <UploadFile/>
       <SearchBar/>
       <ListUploads />
-    </div>
-  );
+    </div>);
 }

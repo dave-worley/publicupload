@@ -6,23 +6,23 @@ import './style.css';
 export default () => {
   const { state } = React.useContext(Store);
   let totalKB = 0;
-  if (state.uploads.length) {
+  if (state && state.uploads.length) {
     totalKB = Math.round(state.uploads.reduce((a, n) => {
       return a += n.size
     }, 0) / 1000);
   }
   return (
     <div className='listUploads'>
-      <h2>{ state.uploads.length } Documents <span>{ totalKB }KB</span></h2>
+      <h2>{ state ? state.uploads.length : 0 } Documents <span>{ totalKB }KB</span></h2>
       {
-        state.uploads.length > 0 && state.uploads.map((upload) => {
+        state && state.uploads.length > 0 && state.uploads.map((upload) => {
           return (
             <FileDisplay key={ upload.id } file={ upload }/>
           );
         })
       }
       {
-        state.uploads.length === 0 && (<p>No files found.</p>)
+        state && state.uploads.length === 0 && (<p>No files found.</p>)
       }
     </div>
   );

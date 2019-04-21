@@ -6,7 +6,7 @@ import './style.css';
 export default () => {
   const { state, dispatch } = React.useContext(Store);
   return (
-    state.uploadFormVisible &&
+    state && state.uploadFormVisible &&
     <div
       className='modal'
       onKeyPress={ (evt) => {
