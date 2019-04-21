@@ -3,3 +3,12 @@
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.listUploads h2 {
+    width: 100%;
+    padding: 0 1rem;
+}
+.listUploads h2 span {
+    float: right;
+    font-size: 80%;
+    color: #888;
+}
