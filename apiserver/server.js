@@ -14,13 +14,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
+const METAFILE = 'public/meta.json';
+
 const getAllMetadata = () => {
-  return fs.readdirSync('public').filter((file) => {
-    return path.extname(file) === '.json';
-  })
-    .map((file) => {
-      return JSON.parse(fs.readFileSync('public/' + file));
-    });
+  return JSON.parse(fs.readFileSync(METAFILE));
 };
 
 
@@ -79,13 +76,14 @@ router.get('/static/:fileId', (req, res) => {
 router.delete('/removeupload/:fileId', (req, res) => {
   const normalPath = path.normalize(req.params.fileId).replace(/^(\.\.(\/|\\|$))+/, '');
   let removed = undefined;
-  getAllMetadata().filter((file) => {
+  const metaData = getAllMetadata();
+  metaData.filter((file) => {
     if (file.id === normalPath) {
       return true;
     }
   }).forEach((file) => {
     file.deleted = true;
-    fs.writeFileSync(`public/${ file.name }.json`, JSON.stringify(file), 'utf8');
+    fs.writeFileSync(METAFILE, JSON.stringify(metaData), 'utf8');
     fs.renameSync(file.path, file.path + '.deleted');
     helpers.pprint(`Marked a file as deleted: ${ file.path }`, 'red');
     removed = file.id;
@@ -131,7 +129,8 @@ app.post('/upload', (req, res) => {
       originalname: req.file.originalname,
       deleted: false
     };
-    fs.writeFile(`public/${ fileName }.json`, JSON.stringify(meta), 'utf8', () => {});
+    const metaData = getAllMetadata();
+    fs.writeFile(METAFILE, JSON.stringify(metaData.concat([meta])), 'utf8', () => {});
     return res.status(200).json({
       id: meta.id,
       size: meta.size,
