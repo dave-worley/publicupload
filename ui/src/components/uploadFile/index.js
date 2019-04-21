@@ -23,7 +23,7 @@ export default () => {
         toggleUploadForm(dispatch, state.uploadFormVisible);
       } }
       >
-        <span onClick={ () => toggleUploadForm(dispatch, state.uploadFormVisible) } className='close'>&times;</span>
+        <span onClick={ () => toggleUploadForm(dispatch, state.uploadFormVisible) } className='close'></span>
         <input type='file' name='file' onChange={ (evt) => {
           setUploadFile(dispatch, evt.target.files[0])
         } }/>
