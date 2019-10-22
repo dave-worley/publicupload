@@ -30,7 +30,7 @@
 - API requests should be rate limited
 
 ## Improvements
-- A real database. To save time I used the filesystem to store metadata about images. This should have been stored in a relational database or a document store. This is my first Express based app and I didn't want to incur the overhead in time of learning how to add some sort of ORM and database support. Doing it this way really helps prevent SQL injection attacks, though!
+- A real database. To save time I used the filesystem to store metadata about images. This should have been stored in a relational database or a document store. Doing it this way really helps prevent SQL injection attacks, though!
 - Tighter security. Files need to be scanned and verified to be harmless. My security concerns are noted above.
 - Use third party hosting for uploaded files like S3.
 - API unit tests
