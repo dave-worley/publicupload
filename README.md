@@ -62,9 +62,7 @@
 `enzyme-adapter-react-16` enzyme dependency. adapts enzyme to a specific react version.
 
 ## API
-*Any general observation about the API?*
 
-It's a real challenge to secure this API. I've tried to note everything I wanted to do but didn't have time for.
 ### GET /listuploads
 ```
 List all uploads.
