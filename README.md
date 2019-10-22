@@ -1,4 +1,4 @@
-# David - April 21, 2019
+# Example Project
 ## Installation
 1. Clone the repository. The one repository contains both the API server and the UI code.
 2. Start the API server. From the repository root: `cd apiserver && npm i && npm start`. This will start nodemon and serve the basic API from port 8000.
