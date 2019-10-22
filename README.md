@@ -113,6 +113,3 @@ returns:
       id: String,
     }
 ```
----
-## Other notes
-I could have spent days and days working on this. The API layer is a fun challenge on its own.
